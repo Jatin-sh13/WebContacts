@@ -10,7 +10,7 @@ module.exports = function (req, res, next) {
     try {
         const decoded = jwt.verify(token, config.get('jwtSecret')) //ye jo user id return krega usko req.user mai store krlenge
         req.user = decoded.user
-        next()
+        next()//ab hamare pass user ki id aa chuki hai
     } catch (error) {
         console.log(error)
     }

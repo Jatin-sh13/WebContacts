@@ -11,7 +11,7 @@ const authmiddle = require('../middleware/auth')
 //@access PRIVATE
 router.get('/', authmiddle, async (req, res) => {
     try {
-        const user = await User.findById(req.user.id).select('-password')
+        const user = await User.findById(req.user.id).select('-password') //password ko hta ke sari user ki information bhejna
         res.json(user)
     } catch (error) {
         console.log(error)
