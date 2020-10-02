@@ -1,7 +1,6 @@
 {
   "name": "webcontacts",
   "version": "1.0.0",
-  "description": "",
   "main": "app.js",
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -27,5 +26,6 @@
   "bugs": {
     "url": "https://github.com/Jatin-sh13/WebContacts/issues"
   },
-  "homepage": "https://github.com/Jatin-sh13/WebContacts#readme"
+  "homepage": "https://github.com/Jatin-sh13/WebContacts#readme",
+  "description": ""
 }
