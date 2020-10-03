@@ -14,14 +14,14 @@ const Register = (props) => {
     const authcontext = useContext(AuthContext)
     const { register, error, clearErrors, isAuthenticated } = authcontext
     useEffect(() => {
-        if (isAuthenticated) {
-            return <Redirect path="/" />
-        }
         if (error) {
             context.setAlert('User Already Exist', 'danger')
             clearErrors()
         }
     }, [error,isAuthenticated])
+    if (isAuthenticated) {
+        return<Redirect to="/" />
+    }
     const { name, email, password, password2 } = user
     const onchange = (e) => {
         setUser({ ...user, [e.target.name]: e.target.value })

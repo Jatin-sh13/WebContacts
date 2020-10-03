@@ -18,7 +18,7 @@ const AuthReducer = (state, action) => {
                 ...action.payload,
                 isAuthenticated: true,
                 loading: false,
-                error:null
+                error: null,
             }
         case REGISTER_FAIL:
             localStorage.removeItem('token')
@@ -30,19 +30,19 @@ const AuthReducer = (state, action) => {
                 user: null,
                 error: action.payload
             }
-        case CLEAR_ERRORS:{
-            return{
+        case CLEAR_ERRORS: {
+            return {
                 ...state,
-                error:null
+                error: null
             }
         }
-        case USER_LOADED:{
-            return{
+        case USER_LOADED: {
+            return {
                 ...state,
-                isAuthenticated:true,
-                loading:false,
-                user:action.payload,
-                error:null
+                isAuthenticated: true,
+                loading: false,
+                user: action.payload,
+                error: null
             }
         }
         default: return
