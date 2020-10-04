@@ -23,22 +23,22 @@ const AuthState = (props) => {
         error: null
     }
     const [state, dispatch] = useReducer(AuthReducer, initialState)
-    //login user
+    //Get user
     const loadUser = async () => {
         //TODO:load token into global header
-        if(localStorage.token){
+        if (localStorage.token) {
             setAuthToken(localStorage.token)
         }
         try {
             const res = await Axios.get('/api/auth')//yha par api request mai token send krna hoga kyoki token
             //jo hai user id return krega usi user ki id ke base pai particular user ko load krenge.
             dispatch({
-                type:USER_LOADED,
-                payload:res.data
+                type: USER_LOADED,
+                payload: res.data
             })
         } catch (error) {
             dispatch({
-                type:AUTH_ERROR,
+                type: AUTH_ERROR,
 
             })
         }
@@ -65,6 +65,34 @@ const AuthState = (props) => {
             })
         }
     }
+    //LOGIN USER
+    const loginUser = async (formdata) => {
+        const config = {
+            headers: {
+                'content-type': 'application/json'
+            }
+        }
+        try {
+            const res = await Axios.post('/api/auth', formdata, config)
+            console.log('hello')
+            dispatch({
+                type: LOGIN_SUCCESS,
+                payload: res.data
+            });
+            loadUser() //register or  hone ke baad user ki information ko load kar rhe hai 
+        } catch (error) {
+            dispatch({
+                type: LOGIN_FAIL,
+                payload: error.response.data.msg
+            })
+        }
+    }
+    //LOGOUT
+    const logOut = () => {
+        dispatch({
+            type:LOGOUT
+        })
+    }
     const clearErrors = () => dispatch({ type: CLEAR_ERRORS })
     return (
         <AuthContext.Provider value={{
@@ -74,7 +102,10 @@ const AuthState = (props) => {
             user: state.user,
             error: state.error,
             register,
-            clearErrors,loadUser
+            clearErrors,
+            loadUser,
+            loginUser,
+            logOut
         }}>
             {props.children}
         </AuthContext.Provider>

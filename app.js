@@ -22,7 +22,7 @@ app.use(express.json({ extended: false }))
 app.use('/api/users', userRoute)
 app.use('/api/contacts', userContacts)
 app.use('/api/auth', userAuth)
-const port = process.env.PORT || 1000
+const port = process.env.PORT || 1999
 app.listen(port, () => {
     console.log("Server is running")
 })
