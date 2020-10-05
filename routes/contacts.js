@@ -25,12 +25,12 @@ router.post('/', [authmiddle,
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
-    const { name, email, phone, type } = req.body;
+    const { name, email, Phone, type } = req.body;
     try {
         const newcontact = await new Contact({
             name,
             email,
-            phone,
+            Phone,
             type,
             user: req.user.id
         })
@@ -44,11 +44,11 @@ router.post('/', [authmiddle,
 //@description update contact 
 //@access PRIVATE
 router.put('/:id', authmiddle, async (req, res) => {
-    const { name, email, phone, type } = req.body;
+    const { name, email, Phone, type } = req.body;
     const contactFields = {}
     if (name) contactFields.name = name;
     if (email) contactFields.email = email;
-    if (phone) contactFields.phone = phone;
+    if (Phone) contactFields.phone = phone;
     if (type) contactFields.type = type;
     try {
         let contact = await Contact.findById(req.params.id);

@@ -13,7 +13,7 @@ import {
     CLEAR_FILTER,
     CONTACT_ERROR
 } from './Types';
-const { v4: uuidv4 } = require('uuid');
+import Axios from 'axios';
 
 const ContactState = (props) => {
     const contactContext = useContext(ContactContext)
@@ -24,10 +24,34 @@ const ContactState = (props) => {
     }
     const [state, dispatch] = useReducer(ContactReducer, initialState)
     //Add Contacts
-    const AddContact = (contact) => {
-        contact.id = uuidv4();
-        dispatch({ type: ADD_CONTACT, payload: contact })
-        console.log(state)
+    const AddContact = async (contact) => {
+        const config = {
+            headers: {
+                'Content-type': 'application/json'
+            }
+        }
+        try {
+            const res = await Axios.post('/api/contacts', contact, config)
+            dispatch({ type: ADD_CONTACT, payload: res.data })
+        } catch (error) {
+            dispatch({
+                type: CONTACT_ERROR,
+                payload: error.response.msg
+            })
+        }
+    }
+
+    //get contacts
+    const getContact = async () => {
+        try {
+            const res = await Axios.get('/api/contacts')
+            dispatch({ type: GET_CONTACTS, payload: res.data })
+        } catch (error) {
+            dispatch({
+                type: CONTACT_ERROR,
+                payload: error.response.msg
+            })
+        }
     }
     //Delete Contact
     const onDelete = (id) => {
@@ -55,14 +79,15 @@ const ContactState = (props) => {
         <ContactContext.Provider value={{
             contacts: state.contacts,
             current: state.current,
-            filtered:state.filtered,
+            filtered: state.filtered,
             AddContact,
             onDelete,
             SetCurrent,
             clearCurrent,
             UpdateContact,
             FilterContacts,
-            clearFilter
+            clearFilter,
+            getContact
         }}>
             {props.children}
         </ContactContext.Provider>

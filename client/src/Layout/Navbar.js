@@ -10,6 +10,8 @@ const Navbar = () => {
     }
     const authlinks = (
         <Fragment>
+            <li><Link to='/'>Home</Link></li>
+            <li><Link to='/About'>About</Link></li>
             <li>
                 <a href="#" onClick={onLogout}>
                     <i className="fas fa-sign-out-alt"><span className="hide-sm">Logout</span></i>
