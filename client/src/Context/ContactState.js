@@ -54,9 +54,32 @@ const ContactState = (props) => {
         }
     }
     //Delete Contact
-    const onDelete = (id) => {
-        console.log(id)
-        dispatch({ type: DELETE_CONTACT, payload: id })
+    const onDelete = async (id) => {
+        try {
+            await Axios.delete(`/api/contacts/${id}`)
+            dispatch({ type: DELETE_CONTACT, payload: id })
+        } catch (error) {
+            dispatch({
+                type: CONTACT_ERROR,
+            })
+        }
+    }
+    //Update Contact
+    const updateContact = async (contact) => {
+        const config = {
+            headers: {
+                'Content-type': 'application/json'
+            }
+        }
+        try {
+            const res = await Axios.put(`/api/contacts/${contact._id}`, contact, config)
+            dispatch({ type: ADD_CONTACT, payload: res.data })
+        } catch (error) {
+            dispatch({
+                type: CONTACT_ERROR,
+                payload: error.response.msg
+            })
+        }
     }
     const SetCurrent = contact => {
         dispatch({ type: SET_CURRENT, payload: contact })

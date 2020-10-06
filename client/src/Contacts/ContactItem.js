@@ -3,13 +3,12 @@ import ContactContext from '../Context/ContactContext'
 import ContactState from '../Context/ContactState'
 const ContactItem = ({ contact }) => {
     const contactContext = useContext(ContactContext)
-    const { name, email, Phone, id } = contact
+    const { name, email, Phone, _id } = contact
     //Delete
     const onDelete = () => {
-        contactContext.onDelete(id)
+        contactContext.onDelete(_id)
         contactContext.clearCurrent()
         console.log(contact)
-        console.log(id)
     }
     const setedit=()=>{
         contactContext.SetCurrent(contact)

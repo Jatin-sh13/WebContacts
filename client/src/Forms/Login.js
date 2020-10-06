@@ -3,6 +3,7 @@ import AlertContext from '../Alert/AlertContext'
 import Alerts from '../Alert/Alerts'
 import AuthContext from '../Auth/AuthContext'
 import { Redirect } from 'react-router-dom'
+import Spinner from '../Layout/Spinner'
 const Login = () => {
     const [user, setUser] = useState({
         email: '',
