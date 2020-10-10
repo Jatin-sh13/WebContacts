@@ -28,7 +28,7 @@ const Navbar = () => {
     return (
         <div>
             <div className="navbar bg-primary">
-                <h1>Contact Keeper</h1>
+                <h1>WebContacts</h1>
                 <ul>
                     {isAuthenticated ? authlinks : guestlink}
                 </ul>
